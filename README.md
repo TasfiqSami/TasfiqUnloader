@@ -29,7 +29,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/TasfiqSami/TasfiqUnloader/">
     <img src="img/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -103,7 +103,12 @@ You can use /hibernate to toggle the plugin off (and on again) this may be usefu
 You have to be OP or have this permission to use the command:
 `tasfiqunloader.toggle`
 
-**Caveats**
+**Caveats:**
+* The first player to join the server while it is hibernating might have to try to connect twice. In most cases this is not needed, but it is possible
+* Since Hibernate "freezes" the server, plugins like Dynmap will stop working when no players are connected (for Dynmap specifically an advanced workaround could be to not use the built in webserver, but use your own)
+* Plugin won't help if your server is never empty
+* Because of the hibernation, can't keep up messages might show up in your console.
+* # While the server is hibernating, your TPS will go down (intentionally). If you have plugins that monitor TPS, these might report issues during hibernation and for a few minutes after due to them using averages of the past X minutes.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
