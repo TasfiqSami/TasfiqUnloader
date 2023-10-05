@@ -95,9 +95,15 @@ Features:
 * Works for all versions of Craftbukkit or Spigot
 * Very lightweight plugin. Does not cause any lag at all. :smile:
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+**How does this work?**
+The plugin will intentionally "lag" your server while no players are connected. You can see it as freezing the server. It'll make it dormant until a player connects.
 
-Use the `BLANK_README.md` to get started.
+Command (since version 1.02)
+You can use /hibernate to toggle the plugin off (and on again) this may be useful in situations where you have to generate a world while no players are online or something similar. Does not save over reload/restart! Enabled by default.
+You have to be OP or have this permission to use the command:
+`tasfiqunloader.toggle`
+
+**Caveats**
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
