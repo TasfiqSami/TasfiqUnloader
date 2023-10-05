@@ -80,16 +80,20 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## About This Plugin
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+This is a very simple plugin. It will reduce CPU usage to about 0-1% when no players are online on the server. This can be used for a lot of purposes.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+*Note that this plugin will only be useful for small servers that tend to be empty at night or during schooldays. If you've got 500 players, the plugin will never "enable" and will not make any difference.*
+
+Features:
+* Save electricity (if you host the server)
+* Let other software use the CPU when no one is playing Minecraft.
+* Allow more servers to run on your machine
+* Works for all versions of Craftbukkit or Spigot
+* Very lightweight plugin. Does not cause any lag at all. :smile:
 
 Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
 
