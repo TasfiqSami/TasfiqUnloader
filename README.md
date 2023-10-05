@@ -36,7 +36,7 @@
   <h3 align="center">Tasfiq Unloader</h3>
 
   <p align="center">
-    An awesome that unloads Loaded chunk in your minecraft server
+    An awesome minecraft plugin that unloads Loaded chunk in your minecraft server
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
