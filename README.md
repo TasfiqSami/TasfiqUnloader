@@ -75,7 +75,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About This Plugin
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Title][product-screenshot]](https://cdn.discordapp.com/attachments/1130165172560986204/1159730393210159214/20231006_115402.jpg?ex=65321618&is=651fa118&hm=852866ea12ec57957d4d3145d8f82e2d4652d2d3e13165f93fe978c59c85e065&)
 
 This is a very simple plugin. It will reduce CPU usage to about 0-1% when no players are online on the server. This can be used for a lot of purposes.
 
