@@ -137,13 +137,13 @@ Project Link: [https://github.com/TasfiqSami/TasfiqUnloader](https://github.com/
 
 
 ## Server
-```html
+
 Server with no players online, without Hibernate
 <progress value="13" max="100"></progress>
 
 Server with no players online and Hibernate installed
 <progress value="0" max="100"></progress>
-```
+
 
 
 
