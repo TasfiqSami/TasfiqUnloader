@@ -1,0 +1,10 @@
+name: TasfiqUnloader
+version: 2.1.0
+main: be.wwx.TasfiqUnloader.Main
+api-version: 1.15
+authors: [Tasfiq]
+commands:
+  hibernate:
+    description: Toggle Unloader on or off
+    permission: tasfiqunloader.toggle
+    permission-message: You do not have the required permission (<permission>)

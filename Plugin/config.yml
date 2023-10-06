@@ -1,0 +1,5 @@
+# Thank you for using TasfiqUnloader! For more information on the config file, please see the plugin page: https://github.com/TasfiqSami/TasfiqUnloader
+enabled: true
+sleepMillis: 1000
+unloadChunks: true
+blacklist: []
