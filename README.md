@@ -136,16 +136,14 @@ Project Link: [https://github.com/TasfiqSami/TasfiqUnloader](https://github.com/
 
 
 
-## Example
+## Server
+
 Server with no players online, without Hibernate
-<div style="border: 1px solid #ccc; width: 100%; border-radius: 5px; text-align: left;">
-    <div style="background-color: #ccc; width: 13%; border-radius: 5px;">&nbsp;</div>
-</div>
+[              13%    progress bar                                                                         ]
 
 Server with no players online and Hibernate installed
-<div style="border: 1px solid #ccc; width: 100%; border-radius: 5px; text-align: left;">
-    <div style="background-color: #ccc; width: 0%; border-radius: 5px;">&nbsp;</div>
-</div>
+[              0%    progress bar                                                                          ]
+
 
 
 
