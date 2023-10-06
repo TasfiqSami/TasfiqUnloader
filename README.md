@@ -139,10 +139,10 @@ Project Link: [https://github.com/TasfiqSami/TasfiqUnloader](https://github.com/
 ## Server
 
 Server with no players online, without Hibernate
-[              13%    progress bar                                                                         ]
+<progress value="13" max="100"></progress>
 
 Server with no players online and Hibernate installed
-[              0%    progress bar                                                                          ]
+<progress value="0" max="100"></progress>
 
 
 
