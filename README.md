@@ -135,6 +135,20 @@ Project Link: [https://github.com/TasfiqSami/TasfiqUnloader](https://github.com/
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+
+## Example
+Server with no players online, without Hibernate
+<div style="border: 1px solid #ccc; width: 100%; border-radius: 5px; text-align: left;">
+    <div style="background-color: #ccc; width: 13%; border-radius: 5px;">&nbsp;</div>
+</div>
+
+Server with no players online and Hibernate installed
+<div style="border: 1px solid #ccc; width: 100%; border-radius: 5px; text-align: left;">
+    <div style="background-color: #ccc; width: 0%; border-radius: 5px;">&nbsp;</div>
+</div>
+
+
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
