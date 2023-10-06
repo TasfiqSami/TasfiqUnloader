@@ -135,7 +135,7 @@ Project Link: [https://github.com/TasfiqSami/TasfiqUnloader](https://github.com/
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-<img src="example.jpg" alt="Example Image" width="300" height="200">
+<img src="example.png" alt="Example" width="300" height="200">
 
 
 
