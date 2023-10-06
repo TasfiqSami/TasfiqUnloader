@@ -104,9 +104,9 @@ You have to be OP or have this permission to use the command:
 * # While the server is hibernating, your TPS will go down (intentionally). If you have plugins that monitor TPS, these might report issues during hibernation and for a few minutes after due to them using averages of the past X minutes.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-Server with no players online
+### Server with no players online
 <img src="img/example1.png" alt="Example" width="626" height="23">
-Server with no players online and TasfiqUnloader is installed
+### Server with no players online and TasfiqUnloader is installed
 <img src="img/example2.png" alt="Example" width="624" height="24">
 
 ### Built With
