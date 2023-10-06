@@ -153,4 +153,4 @@ Project Link: [https://github.com/TasfiqSami/TasfiqUnloader](https://github.com/
 [issues-url]: https://github.com/tasfiqsami/TasfiqUnloader/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://bio.link/tasfiqah
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: images/title.jpg
