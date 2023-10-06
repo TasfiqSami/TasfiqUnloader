@@ -55,7 +55,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Plugint</a>
+      <a href="#about-the-project">About The Plugin</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -81,7 +81,7 @@ This is a very simple plugin. It will reduce CPU usage to about 0-1% when no pla
 
 *Note that this plugin will only be useful for small servers that tend to be empty at night or during schooldays. If you've got 500 players, the plugin will never "enable" and will not make any difference.*
 
-Features:
+## Features:
 * Save electricity (if you host the server)
 * Let other software use the CPU when no one is playing Minecraft.
 * Allow more servers to run on your machine
@@ -96,7 +96,7 @@ You can use /hibernate to toggle the plugin off (and on again) this may be usefu
 You have to be OP or have this permission to use the command:
 `tasfiqunloader.toggle`
 
-**Caveats:**
+## **Caveats:**
 * The first player to join the server while it is hibernating might have to try to connect twice. In most cases this is not needed, but it is possible
 * Since Hibernate "freezes" the server, plugins like Dynmap will stop working when no players are connected (for Dynmap specifically an advanced workaround could be to not use the built in webserver, but use your own)
 * Plugin won't help if your server is never empty
