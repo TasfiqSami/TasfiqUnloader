@@ -1,0 +1,20 @@
+name: TasfiqUnloader
+version: '${project.version}'
+main: be.wwx.tasfiqunloader.TasfiqUnloader
+api-version: '1.21'
+description: Hibernates the server and unloads chunks while nobody is online.
+authors: [Tasfiq]
+website: https://github.com/TasfiqSami/TasfiqUnloader
+
+commands:
+  hibernate:
+    description: Toggle, check or reload TasfiqUnloader
+    usage: /<command> [toggle|status|reload]
+    aliases: [tasfiqunloader]
+    permission: tasfiqunloader.toggle
+    permission-message: You do not have the required permission (<permission>)
+
+permissions:
+  tasfiqunloader.toggle:
+    description: Allows using /hibernate
+    default: op
