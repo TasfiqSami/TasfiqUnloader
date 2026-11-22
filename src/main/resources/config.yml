@@ -1,0 +1,26 @@
+# Thank you for using TasfiqUnloader!
+# Docs: https://github.com/TasfiqSami/TasfiqUnloader
+
+# Whether hibernation is active when the server starts.
+# /hibernate toggles it at runtime (the change is not saved).
+enabled: true
+
+# How long (in milliseconds) the server sleeps per tick while nobody is online.
+# Keep this well below your server's watchdog timeout. Values are limited to 1-10000.
+sleepMillis: 1000
+
+# Unload all loaded chunks while nobody is online.
+unloadChunks: true
+
+# Run the garbage collector after chunks were unloaded.
+gcAfterUnload: true
+
+# Only used when a blacklisted plugin is installed (hibernation is then disabled):
+# how often (in seconds) chunks are unloaded while nobody is online.
+unloadIntervalSeconds: 30
+
+# Plugins that stop working while the server hibernates (case-insensitive).
+# If one of them is installed, hibernation stays off and only chunk unloading runs.
+# An entry starting with http:// or https:// is downloaded as a list of plugin names,
+# one per line ('#' starts a comment).
+blacklist: []
