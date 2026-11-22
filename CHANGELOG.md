@@ -4,9 +4,12 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
 ## [3.0.0] - 2026-11-23
 
 ### Added
+- MIT license, Code of Conduct, contributing guide, security policy, support info and code owners.
 - One jar for every server from Minecraft 1.8 to 26.x on Java 8 to 25. It is built as Java 8
   bytecode against the Bukkit 1.8.8 API, and CI loads it on JDK 8, 11, 17, 21 and 25.
 - Maven build (`mvn package`) with a release workflow that runs when a GitHub release is published

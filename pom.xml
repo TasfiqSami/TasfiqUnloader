@@ -13,6 +13,14 @@
     <description>Hibernates the server and unloads chunks while nobody is online. Minecraft 1.8 to 26.x, Java 8 to 25.</description>
     <url>https://github.com/TasfiqSami/TasfiqUnloader</url>
 
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <developers>
         <developer>
             <id>tasfiqsami</id>

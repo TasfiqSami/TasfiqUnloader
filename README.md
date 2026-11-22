@@ -19,6 +19,7 @@
     <a href="https://github.com/TasfiqSami/TasfiqUnloader/releases"><img src="https://img.shields.io/github/downloads/TasfiqSami/TasfiqUnloader/total" alt="Downloads"></a>
     <a href="https://github.com/TasfiqSami/TasfiqUnloader/stargazers"><img src="https://img.shields.io/github/stars/TasfiqSami/TasfiqUnloader" alt="Stars"></a>
     <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues"><img src="https://img.shields.io/github/issues/TasfiqSami/TasfiqUnloader" alt="Issues"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/TasfiqSami/TasfiqUnloader" alt="License"></a>
   </p>
 
   <p align="center">
@@ -43,6 +44,8 @@
     <li><a href="#caveats">Caveats</a></li>
     <li><a href="#building-from-source">Building from source</a></li>
     <li><a href="#releases">Releases</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -171,6 +174,18 @@ Releases are built by GitHub Actions. To publish one:
 2. Publish a GitHub release whose tag is `v` plus that version, using the CHANGELOG section as the notes. In the browser use **Releases → Draft a new release**, or from a terminal: `gh release create v3.0.0 --title "TasfiqUnloader 3.0.0" --notes-file notes.md`.
 
 Publishing the release starts the [Release workflow](.github/workflows/release.yml). It checks that the tag matches the pom, builds the jar, checks it is Java 8 bytecode, attaches the jar and its checksum to the release, and publishes the package. Run the [Server compatibility workflow](.github/workflows/compat.yml) from the Actions tab before a release to boot real servers with the new jar.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Contributing
+
+Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for the setup and the compatibility rules (Java 8 bytecode, Bukkit 1.8.8 API only), and follow the [Code of Conduct](CODE_OF_CONDUCT.md). For help see [SUPPORT](.github/SUPPORT.md), and report security issues as described in [SECURITY.md](SECURITY.md).
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
