@@ -9,8 +9,8 @@ All notable changes to this project are documented here. The format follows
 ### Added
 - One jar for every server from Minecraft 1.8 to 26.x on Java 8 to 25. It is built as Java 8
   bytecode against the Bukkit 1.8.8 API, and CI loads it on JDK 8, 11, 17, 21 and 25.
-- Maven build (`mvn package`) with a tag-triggered release workflow that publishes the jar,
-  a SHA-256 checksum and a GitHub Packages artifact.
+- Maven build (`mvn package`) with a release workflow that runs when a GitHub release is published
+  and attaches the jar and a SHA-256 checksum, and publishes a GitHub Packages artifact.
 - `/hibernate status` and `/hibernate reload`, with tab completion and a `/tasfiqunloader` alias.
 - Config options `gcAfterUnload` and `unloadIntervalSeconds`.
 - Log message when the plugin is ready.
