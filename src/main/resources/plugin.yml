@@ -1,7 +1,9 @@
 name: TasfiqUnloader
 version: '${project.version}'
-main: be.wwx.tasfiqunloader.TasfiqUnloader
-api-version: '1.21'
+main: io.github.tasfiqsami.tasfiqunloader.TasfiqUnloader
+# 1.13 is the lowest value modern servers accept; it stops them treating the plugin as legacy.
+# Servers older than 1.13 ignore this key, so one jar works from 1.8 to 26.x.
+api-version: '1.13'
 description: Hibernates the server and unloads chunks while nobody is online.
 authors: [Tasfiq]
 website: https://github.com/TasfiqSami/TasfiqUnloader

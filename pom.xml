@@ -4,18 +4,39 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.wwx</groupId>
+    <groupId>io.github.tasfiqsami</groupId>
     <artifactId>tasfiqunloader</artifactId>
     <version>3.0.0</version>
     <packaging>jar</packaging>
 
     <name>TasfiqUnloader</name>
-    <description>Hibernates the server and unloads chunks while nobody is online.</description>
+    <description>Hibernates the server and unloads chunks while nobody is online. Minecraft 1.8 to 26.x, Java 8 to 25.</description>
     <url>https://github.com/TasfiqSami/TasfiqUnloader</url>
 
+    <developers>
+        <developer>
+            <id>tasfiqsami</id>
+            <name>Tasfiq</name>
+            <url>https://github.com/TasfiqSami</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/TasfiqSami/TasfiqUnloader</url>
+        <connection>scm:git:https://github.com/TasfiqSami/TasfiqUnloader.git</connection>
+        <developerConnection>scm:git:git@github.com:TasfiqSami/TasfiqUnloader.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/TasfiqSami/TasfiqUnloader/issues</url>
+    </issueManagement>
+
     <properties>
-        <maven.compiler.release>21</maven.compiler.release>
+        <!-- Java 8 bytecode runs unchanged on every JVM from 8 to 25. -->
+        <maven.compiler.release>8</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputTimestamp>2026-11-23T00:00:00Z</project.build.outputTimestamp>
     </properties>
 
     <repositories>
@@ -25,13 +46,31 @@
         </repository>
     </repositories>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/TasfiqSami/TasfiqUnloader</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
-        <!-- Only core Bukkit API is used, so the jar runs on Spigot, Paper and Purpur. -->
+        <!--
+            Compiled against the oldest supported API (1.8.8) so the jar can only use calls that exist
+            on every version from 1.8 up to the newest release. Chat components are not used, so the
+            snapshot-only bungeecord-chat transitive dependency is excluded.
+        -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.21.4-R0.1-SNAPSHOT</version>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.md-5</groupId>
+                    <artifactId>bungeecord-chat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -58,6 +97,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                    <showWarnings>true</showWarnings>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -68,6 +111,19 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

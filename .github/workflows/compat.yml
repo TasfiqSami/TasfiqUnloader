@@ -1,0 +1,61 @@
+name: Server compatibility
+
+# Boots real servers with the built jar. Needs internet access to PaperMC, so it runs on demand
+# and monthly rather than on every push. Run it from the Actions tab before a release.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 1 * *'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - run: mvn -B -ntp package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TasfiqUnloader
+          path: target/TasfiqUnloader-*.jar
+          if-no-files-found: error
+
+  smoke:
+    name: Minecraft ${{ matrix.mc }} (Java ${{ matrix.java }})
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { mc: '1.8.8',  java: '8'  }
+          - { mc: '1.12.2', java: '8'  }
+          - { mc: '1.16.5', java: '11' }
+          - { mc: '1.18.2', java: '17' }
+          - { mc: '1.20.4', java: '21' }
+          - { mc: '1.21.4', java: '21' }
+          - { mc: 'latest', java: '25' }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: TasfiqUnloader
+          path: dist
+
+      - name: Boot a server and test the plugin
+        run: bash .github/scripts/smoke-test.sh "${{ matrix.mc }}" "$(ls dist/TasfiqUnloader-*.jar | head -1)"

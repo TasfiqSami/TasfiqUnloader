@@ -1,4 +1,4 @@
-package be.wwx.tasfiqunloader;
+package io.github.tasfiqsami.tasfiqunloader;
 
 import java.util.logging.Logger;
 

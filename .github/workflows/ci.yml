@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build
+        run: mvn -B -ntp verify
+
+      - name: Verify Java 8 bytecode
+        run: bash .github/scripts/check-bytecode.sh target/classes
+
+      - name: Collect dependencies for the runtime check
+        run: mvn -B -ntp dependency:copy-dependencies -DoutputDirectory=target/libs
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TasfiqUnloader
+          path: target/TasfiqUnloader-*.jar
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-check
+          path: |
+            target/classes
+            target/libs
+          if-no-files-found: error
+
+  # The jar is Java 8 bytecode. Prove it loads and passes bytecode verification on every
+  # JDK from 8 to 25, which covers every JVM a Minecraft server from 1.8 to 26.x runs on.
+  java-compat:
+    name: Runs on Java ${{ matrix.java }}
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ['8', '11', '17', '21', '25']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: runtime-check
+          path: target
+
+      - name: Load and verify every class
+        run: |
+          mkdir -p target/loadcheck
+          javac -d target/loadcheck .github/scripts/LoadCheck.java
+          classes=$(cd target/classes && find . -name '*.class' | sed 's#^\./##; s#/#.#g; s#\.class$##')
+          java -Xverify:all -cp "target/loadcheck:target/classes:target/libs/*" LoadCheck $classes

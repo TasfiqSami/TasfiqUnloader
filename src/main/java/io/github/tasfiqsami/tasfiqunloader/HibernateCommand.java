@@ -1,5 +1,8 @@
-package be.wwx.tasfiqunloader;
+package io.github.tasfiqsami.tasfiqunloader;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,7 +17,7 @@ import org.bukkit.command.TabCompleter;
 final class HibernateCommand implements CommandExecutor, TabCompleter {
 
     private static final String PREFIX = "[TasfiqUnloader] ";
-    private static final List<String> SUBCOMMANDS = List.of("toggle", "status", "reload");
+    private static final List<String> SUBCOMMANDS = Arrays.asList("toggle", "status", "reload");
 
     private final TasfiqUnloader plugin;
 
@@ -30,31 +33,35 @@ final class HibernateCommand implements CommandExecutor, TabCompleter {
         String sub = args.length == 0 ? "toggle" : args[0].toLowerCase(Locale.ROOT);
 
         switch (sub) {
-            case "toggle" -> {
+            case "toggle":
                 boolean nowActive = plugin.toggleActive();
                 sender.sendMessage(PREFIX + "Plugin is now " + (nowActive ? "enabled" : "disabled"));
-            }
-            case "status" -> {
+                return true;
+            case "status":
                 sender.sendMessage(PREFIX + "Plugin is currently " + (plugin.isActive() ? "enabled" : "disabled"));
                 sender.sendMessage(PREFIX + "The server is currently " + (plugin.isSleeping() ? "sleeping" : "awake"));
-            }
-            case "reload" -> {
+                return true;
+            case "reload":
                 plugin.reload();
                 sender.sendMessage(PREFIX + "Configuration reloaded");
-            }
-            default -> {
+                return true;
+            default:
                 return false;
-            }
         }
-        return true;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length != 1) {
-            return List.of();
+            return Collections.emptyList();
         }
         String typed = args[0].toLowerCase(Locale.ROOT);
-        return SUBCOMMANDS.stream().filter(s -> s.startsWith(typed)).toList();
+        List<String> matches = new ArrayList<String>();
+        for (String sub : SUBCOMMANDS) {
+            if (sub.startsWith(typed)) {
+                matches.add(sub);
+            }
+        }
+        return matches;
     }
 }

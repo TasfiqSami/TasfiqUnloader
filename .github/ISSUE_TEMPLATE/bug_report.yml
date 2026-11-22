@@ -1,0 +1,45 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: input
+    id: plugin-version
+    attributes:
+      label: TasfiqUnloader version
+      placeholder: "3.0.0"
+    validations:
+      required: true
+  - type: input
+    id: server
+    attributes:
+      label: Server software and Minecraft version
+      description: Run `/version` in the console.
+      placeholder: "Paper 1.21.4 build 232"
+    validations:
+      required: true
+  - type: input
+    id: java
+    attributes:
+      label: Java version
+      description: Run `java -version`.
+      placeholder: "Java 21"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: config.yml
+      render: yaml
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console log
+      description: Paste the relevant part of `latest.log`, including any stack trace.
+      render: text

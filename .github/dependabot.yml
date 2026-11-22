@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      # The Bukkit API is deliberately pinned to 1.8.8 so the jar only uses API that exists on
+      # every supported server version. Never bump it.
+      - dependency-name: org.spigotmc:spigot-api
+    groups:
+      maven-plugins:
+        patterns: ['*']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']

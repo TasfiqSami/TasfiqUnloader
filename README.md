@@ -1,12 +1,5 @@
 <div id="top"></div>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-<br />
 <div align="center">
   <a href="https://github.com/TasfiqSami/TasfiqUnloader/">
     <img src="img/logo.png" alt="Logo" width="80" height="80">
@@ -15,45 +8,60 @@
   <h3 align="center">Tasfiq Unloader</h3>
 
   <p align="center">
-    A lightweight Minecraft plugin that hibernates your server and unloads chunks while nobody is online.
+    Hibernates your Minecraft server and unloads chunks while nobody is online.
     <br />
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader#readme"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues">Report Bug</a>
+    One jar for <strong>Minecraft 1.8 to 26.x</strong> on <strong>Java 8 to 25</strong>.
+  </p>
+
+  <p align="center">
+    <a href="https://github.com/TasfiqSami/TasfiqUnloader/actions/workflows/ci.yml"><img src="https://github.com/TasfiqSami/TasfiqUnloader/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+    <a href="https://github.com/TasfiqSami/TasfiqUnloader/releases/latest"><img src="https://img.shields.io/github/v/release/TasfiqSami/TasfiqUnloader" alt="Latest release"></a>
+    <a href="https://github.com/TasfiqSami/TasfiqUnloader/releases"><img src="https://img.shields.io/github/downloads/TasfiqSami/TasfiqUnloader/total" alt="Downloads"></a>
+    <a href="https://github.com/TasfiqSami/TasfiqUnloader/stargazers"><img src="https://img.shields.io/github/stars/TasfiqSami/TasfiqUnloader" alt="Stars"></a>
+    <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues"><img src="https://img.shields.io/github/issues/TasfiqSami/TasfiqUnloader" alt="Issues"></a>
+  </p>
+
+  <p align="center">
+    <a href="https://github.com/TasfiqSami/TasfiqUnloader/releases/latest"><strong>Download</strong></a>
     ·
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues">Request Feature</a>
+    <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues/new/choose">Report a bug</a>
+    ·
+    <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues/new/choose">Request a feature</a>
+    ·
+    <a href="CHANGELOG.md">Changelog</a>
   </p>
 </div>
 
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-this-plugin">About This Plugin</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#compatibility">Compatibility</a></li>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#configuration">Configuration</a></li>
     <li><a href="#commands--permissions">Commands &amp; Permissions</a></li>
     <li><a href="#caveats">Caveats</a></li>
-    <li><a href="#building">Building</a></li>
+    <li><a href="#building-from-source">Building from source</a></li>
+    <li><a href="#releases">Releases</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
-## About This Plugin
+## About
 
-[![Title][product-screenshot]](#about-this-plugin)
+[![Title][product-screenshot]](#about)
 
-TasfiqUnloader reduces CPU usage to about 0-1% while no players are online. When the last player leaves, the plugin saves all worlds and then intentionally "freezes" the server tick loop until someone joins again. While frozen it also unloads loaded chunks, so memory is released too.
+TasfiqUnloader drops CPU usage to about 0-1% while no players are online. When the last player leaves, the plugin saves all worlds and then intentionally "freezes" the server's tick loop until someone joins again. While frozen it also unloads loaded chunks, so memory is released too.
 
 *It is only useful for small servers that tend to be empty at night or during school days. If you have 500 players, it will never kick in.*
 
 ### Features
 
-* Save electricity (if you host the server yourself)
+* Save electricity if you host the server yourself
 * Let other software use the CPU when no one is playing
 * Run more servers on one machine
-* Works on Spigot, Paper and Purpur (Minecraft 1.21+)
-* Very lightweight, and has no effect at all while players are online
+* No effect at all while players are online
+* One jar for every version, with nothing else to install
 
 ### Server with no players online
 <img src="img/example1.png" alt="Server without TasfiqUnloader" width="626" height="23">
@@ -61,17 +69,32 @@ TasfiqUnloader reduces CPU usage to about 0-1% while no players are online. When
 ### Server with no players online and TasfiqUnloader installed
 <img src="img/example2.png" alt="Server with TasfiqUnloader" width="624" height="24">
 
-> **Paper 1.21.2+ users:** Paper has a built-in `pause-when-empty-seconds` option (see its global config). It does a similar job natively. This plugin remains useful on Spigot, and if you also want the chunk unloading and the blacklist.
+> **Paper 1.21.2+ users:** Paper has a built-in `pause-when-empty-seconds` option (see its global config) that does a similar job natively. TasfiqUnloader remains useful on every other version, and when you also want the chunk unloading and the plugin blacklist.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Compatibility
+
+| | Supported |
+| --- | --- |
+| **Minecraft** | 1.8 to 26.x |
+| **Java** | 8 to 25 |
+| **Server software** | Spigot, Paper (and forks such as Purpur), CraftBukkit |
+| **Not supported** | Folia (its regionized threading cannot be frozen this way) |
+
+The jar is compiled as Java 8 bytecode against the Bukkit 1.8.8 API, so it can only use calls that exist on every supported version. Every build is checked in CI to be pure Java 8 bytecode and is loaded and verified on JDK 8, 11, 17, 21 and 25. A separate workflow boots real servers from 1.8.8 to the latest release with the plugin installed.
+
+Use the Java version your Minecraft version needs (for example Java 8 for 1.8 to 1.16, Java 17 for 1.18, Java 21 for 1.20.5+, Java 25 for 26.1+). The plugin runs on all of them.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Installation
 
-Requires **Java 21** or newer and **Minecraft 1.21+** (Spigot, Paper or Purpur). Folia is not supported.
+1. Download `TasfiqUnloader-<version>.jar` from the [latest release](https://github.com/TasfiqSami/TasfiqUnloader/releases/latest).
+2. Put it in your server's `plugins` folder.
+3. Restart the server. That's it.
 
-1. Download the latest jar from the [Releases](https://github.com/TasfiqSami/TasfiqUnloader/releases) page.
-2. Put it in your `plugins` folder.
-3. Restart your server. That's it.
+Each release also has a `.sha256` file to check the download.
 
 ## Configuration
 
@@ -80,7 +103,7 @@ Requires **Java 21** or newer and **Minecraft 1.21+** (Spigot, Paper or Purpur).
 | Key | Default | Description |
 | --- | --- | --- |
 | `enabled` | `true` | Whether hibernation is active at startup. |
-| `sleepMillis` | `1000` | How long the server sleeps per tick while empty (1-10000). Keep it well below your watchdog timeout. |
+| `sleepMillis` | `1000` | How long the server sleeps per tick while empty (1-10000). Keep it well below your server's watchdog timeout. |
 | `unloadChunks` | `true` | Unload loaded chunks while nobody is online. |
 | `gcAfterUnload` | `true` | Run the garbage collector after chunks were unloaded. |
 | `unloadIntervalSeconds` | `30` | Only used when hibernation is disabled by the blacklist: how often chunks are unloaded while empty. |
@@ -108,13 +131,48 @@ Use `/hibernate reload` to apply changes.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Building
+## Building from source
+
+You need JDK 17 or newer (the build targets Java 8 bytecode with `--release 8`) and Maven.
 
 ```sh
+git clone https://github.com/TasfiqSami/TasfiqUnloader.git
+cd TasfiqUnloader
 mvn package
 ```
 
-The jar is written to `target/TasfiqUnloader-<version>.jar`. Needs JDK 21+ and Maven.
+The jar is written to `target/TasfiqUnloader-<version>.jar`.
+
+### Use it as a dependency
+
+Releases are also published to GitHub Packages (GitHub requires a token with `read:packages` to download from it):
+
+```xml
+<repositories>
+  <repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/TasfiqSami/TasfiqUnloader</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>io.github.tasfiqsami</groupId>
+  <artifactId>tasfiqunloader</artifactId>
+  <version>3.0.0</version>
+  <scope>provided</scope>
+</dependency>
+```
+
+## Releases
+
+Releases are built by GitHub Actions. To publish one:
+
+1. Bump the version in `pom.xml` and add a section for it to `CHANGELOG.md`.
+2. Commit, then tag the commit with the same version: `git tag v3.0.0 && git push origin v3.0.0`.
+
+The [Release workflow](.github/workflows/release.yml) checks that the tag matches the pom, builds the jar, checks it is Java 8 bytecode, creates the GitHub release with the jar and its checksum, and publishes the package. Run the [Server compatibility workflow](.github/workflows/compat.yml) from the Actions tab before a release to boot real servers with the new jar.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Contact
 
@@ -124,14 +182,4 @@ Project Link: [https://github.com/TasfiqSami/TasfiqUnloader](https://github.com/
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/TasfiqSami/TasfiqUnloader.svg?style=for-the-badge
-[contributors-url]: https://github.com/TasfiqSami/TasfiqUnloader/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/TasfiqSami/TasfiqUnloader.svg?style=for-the-badge
-[forks-url]: https://github.com/TasfiqSami/TasfiqUnloader/network/members
-[stars-shield]: https://img.shields.io/github/stars/TasfiqSami/TasfiqUnloader.svg?style=for-the-badge
-[stars-url]: https://github.com/TasfiqSami/TasfiqUnloader/stargazers
-[issues-shield]: https://img.shields.io/github/issues/TasfiqSami/TasfiqUnloader.svg?style=for-the-badge
-[issues-url]: https://github.com/TasfiqSami/TasfiqUnloader/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://bio.link/tasfiqah
 [product-screenshot]: img/title.jpg

@@ -1,6 +1,7 @@
-package be.wwx.tasfiqunloader;
+package io.github.tasfiqsami.tasfiqunloader;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -15,6 +16,9 @@ import org.bukkit.scheduler.BukkitTask;
 
 /**
  * Freezes the server while nobody is online and unloads chunks to save CPU and memory.
+ *
+ * <p>Compiled for Java 8 against the Bukkit 1.8.8 API so a single jar loads on every
+ * server from Minecraft 1.8 up to the newest release. Only long-stable API is used.
  */
 public final class TasfiqUnloader extends JavaPlugin {
 
@@ -46,7 +50,12 @@ public final class TasfiqUnloader extends JavaPlugin {
 
         loadSettings();
         // Wait one tick so every other plugin is enabled before the blacklist is checked.
-        getServer().getScheduler().runTask(this, this::start);
+        getServer().getScheduler().runTask(this, new Runnable() {
+            @Override
+            public void run() {
+                start();
+            }
+        });
     }
 
     @Override
@@ -93,41 +102,60 @@ public final class TasfiqUnloader extends JavaPlugin {
         final Settings snapshot = settings;
 
         // The blacklist may point at a URL, so resolve it off the main thread.
-        getServer().getScheduler().runTaskAsynchronously(this, () -> {
-            Set<String> blacklist = BlacklistLoader.load(snapshot.blacklist(), getLogger());
-            try {
-                getServer().getScheduler().runTask(this, () -> {
-                    if (current == generation) {
-                        begin(blacklist);
-                    }
-                });
-            } catch (IllegalPluginAccessException ignored) {
-                // Plugin was disabled while the blacklist was downloading.
+        getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
+            @Override
+            public void run() {
+                final Set<String> blacklist = BlacklistLoader.load(snapshot.blacklist(), getLogger());
+                try {
+                    getServer().getScheduler().runTask(TasfiqUnloader.this, new Runnable() {
+                        @Override
+                        public void run() {
+                            if (current == generation) {
+                                begin(blacklist);
+                            }
+                        }
+                    });
+                } catch (IllegalPluginAccessException ignored) {
+                    // Plugin was disabled while the blacklist was downloading.
+                }
             }
         });
     }
 
     private void begin(Set<String> blacklist) {
-        List<String> conflicts = Arrays.stream(getServer().getPluginManager().getPlugins())
-                .map(Plugin::getName)
-                .filter(name -> blacklist.contains(name.toLowerCase(Locale.ROOT)))
-                .sorted()
-                .toList();
+        List<String> conflicts = new ArrayList<String>();
+        for (Plugin plugin : getServer().getPluginManager().getPlugins()) {
+            if (blacklist.contains(plugin.getName().toLowerCase(Locale.ROOT))) {
+                conflicts.add(plugin.getName());
+            }
+        }
+        Collections.sort(conflicts);
 
         if (conflicts.isEmpty()) {
             hibernating = true;
-            task = getServer().getScheduler().runTaskTimer(this, this::hibernateTick, 0L, 1L);
+            task = getServer().getScheduler().runTaskTimer(this, new Runnable() {
+                @Override
+                public void run() {
+                    hibernateTick();
+                }
+            }, 0L, 1L);
+            getLogger().info("Ready. The server will hibernate while nobody is online (use /hibernate to toggle).");
             return;
         }
 
         getLogger().warning("Blacklisted plugins were found (plugins that will stop working if TasfiqUnloader "
                 + "hibernates the server). Hibernation is disabled, but chunks will still be unloaded. "
                 + "Edit the blacklist in config.yml if you want to force-enable hibernation.");
-        getLogger().warning("Blacklisted plugins: " + String.join(", ", conflicts));
+        getLogger().warning("Blacklisted plugins: " + join(conflicts));
 
         if (settings.unloadChunks()) {
             long period = settings.unloadIntervalSeconds() * 20L;
-            task = getServer().getScheduler().runTaskTimer(this, this::unloadOnlyTick, period, period);
+            task = getServer().getScheduler().runTaskTimer(this, new Runnable() {
+                @Override
+                public void run() {
+                    unloadOnlyTick();
+                }
+            }, period, period);
         }
     }
 
@@ -136,6 +164,17 @@ public final class TasfiqUnloader extends JavaPlugin {
             task.cancel();
             task = null;
         }
+    }
+
+    private static String join(List<String> values) {
+        StringBuilder out = new StringBuilder();
+        for (String value : values) {
+            if (out.length() > 0) {
+                out.append(", ");
+            }
+            out.append(value);
+        }
+        return out.toString();
     }
 
     // ----- scheduled work (main thread) -----
