@@ -1,142 +1,200 @@
-<div id="top"></div>
-
 <div align="center">
-  <a href="https://github.com/TasfiqSami/TasfiqUnloader/">
-    <img src="img/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
-  <h3 align="center">Tasfiq Unloader</h3>
+<img src="img/logo.png" alt="TasfiqUnloader logo" width="96" height="96">
 
-  <p align="center">
-    Hibernates your Minecraft server and unloads chunks while nobody is online.
-    <br />
-    One jar for <strong>Minecraft 1.8 to 26.x</strong> on <strong>Java 8 to 25</strong>.
-  </p>
+# TasfiqUnloader
 
-  <p align="center">
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/actions/workflows/ci.yml"><img src="https://github.com/TasfiqSami/TasfiqUnloader/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/releases/latest"><img src="https://img.shields.io/github/v/release/TasfiqSami/TasfiqUnloader" alt="Latest release"></a>
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/releases"><img src="https://img.shields.io/github/downloads/TasfiqSami/TasfiqUnloader/total" alt="Downloads"></a>
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/stargazers"><img src="https://img.shields.io/github/stars/TasfiqSami/TasfiqUnloader" alt="Stars"></a>
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues"><img src="https://img.shields.io/github/issues/TasfiqSami/TasfiqUnloader" alt="Issues"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/github/license/TasfiqSami/TasfiqUnloader" alt="License"></a>
-  </p>
+**Your Minecraft server sleeps when nobody is online.**<br>
+CPU drops to about 0-1%, memory is released, and everything wakes up the moment a player joins.
 
-  <p align="center">
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/releases/latest"><strong>Download</strong></a>
-    ·
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues/new/choose">Report a bug</a>
-    ·
-    <a href="https://github.com/TasfiqSami/TasfiqUnloader/issues/new/choose">Request a feature</a>
-    ·
-    <a href="CHANGELOG.md">Changelog</a>
-  </p>
+[![CI](https://github.com/TasfiqSami/TasfiqUnloader/actions/workflows/ci.yml/badge.svg)](https://github.com/TasfiqSami/TasfiqUnloader/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/TasfiqSami/TasfiqUnloader?label=release)](https://github.com/TasfiqSami/TasfiqUnloader/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/TasfiqSami/TasfiqUnloader/total)](https://github.com/TasfiqSami/TasfiqUnloader/releases)
+[![Minecraft](https://img.shields.io/badge/minecraft-1.8%20to%2026.x-62b47a)](#compatibility)
+[![Java](https://img.shields.io/badge/java-8%20to%2025-f89820)](#compatibility)
+[![License](https://img.shields.io/github/license/TasfiqSami/TasfiqUnloader)](LICENSE)
+
+[**Download**](https://github.com/TasfiqSami/TasfiqUnloader/releases/latest) &nbsp;|&nbsp;
+[Quick start](#quick-start) &nbsp;|&nbsp;
+[How it works](#how-it-works) &nbsp;|&nbsp;
+[Configuration](#configuration) &nbsp;|&nbsp;
+[FAQ](#faq) &nbsp;|&nbsp;
+[Discord](https://discord.gg/kKQd6PJe22)
+
+<img src="img/title.jpg" alt="TasfiqUnloader" width="640">
+
 </div>
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#about">About</a></li>
-    <li><a href="#compatibility">Compatibility</a></li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#configuration">Configuration</a></li>
-    <li><a href="#commands--permissions">Commands &amp; Permissions</a></li>
-    <li><a href="#caveats">Caveats</a></li>
-    <li><a href="#building-from-source">Building from source</a></li>
-    <li><a href="#releases">Releases</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
+---
 
-## About
+## Why use it?
 
-[![Title][product-screenshot]](#about)
+Most small servers sit empty for hours (at night, on school days, between sessions) but still burn a CPU core and hold chunks in memory. TasfiqUnloader notices when the last player leaves, saves your worlds, and puts the server to sleep until someone joins again.
 
-TasfiqUnloader drops CPU usage to about 0-1% while no players are online. When the last player leaves, the plugin saves all worlds and then intentionally "freezes" the server's tick loop until someone joins again. While frozen it also unloads loaded chunks, so memory is released too.
+|  | Server with no players online | With TasfiqUnloader |
+| --- | --- | --- |
+| **CPU** | <img src="img/example1.png" alt="CPU without TasfiqUnloader" width="313"> | <img src="img/example2.png" alt="CPU with TasfiqUnloader" width="312"> |
 
-*It is only useful for small servers that tend to be empty at night or during school days. If you have 500 players, it will never kick in.*
+Good for:
 
-### Features
+- saving electricity when you host the server yourself
+- letting other software use the CPU while nobody plays
+- running more servers on the same machine
 
-* Save electricity if you host the server yourself
-* Let other software use the CPU when no one is playing
-* Run more servers on one machine
-* No effect at all while players are online
-* One jar for every version, with nothing else to install
+> [!NOTE]
+> It only helps servers that are regularly empty. If you always have players online, it never kicks in (and costs nothing).
 
-### Server with no players online
-<img src="img/example1.png" alt="Server without TasfiqUnloader" width="626" height="23">
+## Quick start
 
-### Server with no players online and TasfiqUnloader installed
-<img src="img/example2.png" alt="Server with TasfiqUnloader" width="624" height="24">
+1. Download `TasfiqUnloader-<version>.jar` from the [latest release](https://github.com/TasfiqSami/TasfiqUnloader/releases/latest).
+2. Drop it into your server's `plugins` folder.
+3. Restart the server.
 
-> **Paper 1.21.2+ users:** Paper has a built-in `pause-when-empty-seconds` option (see its global config) that does a similar job natively. TasfiqUnloader remains useful on every other version, and when you also want the chunk unloading and the plugin blacklist.
+That's it. The defaults work for most servers. Each release also ships a `.sha256` file to verify the download.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+## How it works
+
+```mermaid
+flowchart LR
+    A([Players online]) -->|last player leaves| B[Save all worlds]
+    B --> C[Sleep each tick<br/>and unload chunks]
+    C -->|nobody joins| C
+    C -->|a player joins| D([Server runs normally])
+    D -->|last player leaves| B
+```
+
+While the server is empty, TasfiqUnloader sleeps the main thread a little every tick (`sleepMillis`, 1 second by default). That freezes the game loop, which is why CPU use falls to almost nothing. It also unloads loaded chunks and runs the garbage collector, so memory is given back too. Worlds are saved once before the sleep starts.
+
+Plugins that cannot survive a frozen server (a web map, for example) can be added to a [blacklist](#the-blacklist). If one is installed, the plugin skips the freeze and only unloads chunks on a timer.
 
 ## Compatibility
 
-| | Supported |
+One jar works everywhere. It is compiled as Java 8 bytecode against the Bukkit 1.8.8 API, so it only uses calls that exist on every version.
+
+| | |
 | --- | --- |
 | **Minecraft** | 1.8 to 26.x |
 | **Java** | 8 to 25 |
-| **Server software** | Spigot, Paper (and forks such as Purpur), CraftBukkit |
-| **Not supported** | Folia (its regionized threading cannot be frozen this way) |
+| **Server software** | Spigot, Paper and forks (Purpur and similar), CraftBukkit |
+| **Not supported** | Folia |
 
-The jar is compiled as Java 8 bytecode against the Bukkit 1.8.8 API, so it can only use calls that exist on every supported version. Every build is checked in CI to be pure Java 8 bytecode and is loaded and verified on JDK 8, 11, 17, 21 and 25. A separate workflow boots real servers from 1.8.8 to the latest release with the plugin installed.
+Run the Java version your server software asks for. Typical choices:
 
-Use the Java version your Minecraft version needs (for example Java 8 for 1.8 to 1.16, Java 17 for 1.18, Java 21 for 1.20.5+, Java 25 for 26.1+). The plugin runs on all of them.
+| Minecraft | Usual Java |
+| --- | --- |
+| 1.8 to 1.16 | 8 (newer also works for most of these) |
+| 1.17 | 16 or 17 |
+| 1.18 to 1.20.4 | 17 |
+| 1.20.5 to 1.21.x | 21 |
+| 26.x | 25 |
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+The plugin itself runs on all of them. Check your server software's documentation for its exact requirement.
 
-## Installation
+How this is checked:
 
-1. Download `TasfiqUnloader-<version>.jar` from the [latest release](https://github.com/TasfiqSami/TasfiqUnloader/releases/latest).
-2. Put it in your server's `plugins` folder.
-3. Restart the server. That's it.
+- CI rejects any class that is not Java 8 bytecode.
+- CI loads and verifies the jar on JDK 8, 11, 17, 21 and 25.
+- A manual workflow boots real Paper servers from 1.8.8 to the latest release with the plugin installed.
 
-Each release also has a `.sha256` file to check the download.
+> [!TIP]
+> **Paper 1.21.2+** has a built-in `pause-when-empty-seconds` option that does a similar job. TasfiqUnloader is still the choice for every other version, and when you also want chunk unloading and the blacklist.
+
+## Commands and permissions
+
+| Command | What it does |
+| --- | --- |
+| `/hibernate` or `/hibernate toggle` | Turn hibernation off or on. Not saved over a reload or restart. |
+| `/hibernate status` | Show whether the plugin is enabled and whether the server is sleeping right now. |
+| `/hibernate reload` | Reload `config.yml`. |
+
+`/tasfiqunloader` works as an alias. Every subcommand needs the permission `tasfiqunloader.toggle` (OP by default).
+
+Toggling is handy when you need the server awake with nobody online, for example to generate a world or run a long task.
 
 ## Configuration
 
 `plugins/TasfiqUnloader/config.yml`:
 
+```yaml
+enabled: true               # hibernation active at startup
+sleepMillis: 1000           # sleep per tick while empty (1-10000)
+unloadChunks: true          # unload loaded chunks while empty
+gcAfterUnload: true         # run the garbage collector after unloading
+unloadIntervalSeconds: 30   # chunk unload interval when the blacklist disables hibernation
+blacklist: []               # plugins that break while the server is frozen
+```
+
 | Key | Default | Description |
 | --- | --- | --- |
 | `enabled` | `true` | Whether hibernation is active at startup. |
-| `sleepMillis` | `1000` | How long the server sleeps per tick while empty (1-10000). Keep it well below your server's watchdog timeout. |
+| `sleepMillis` | `1000` | How long the server sleeps per tick while empty, from 1 to 10000. Keep it well below your server's watchdog timeout. |
 | `unloadChunks` | `true` | Unload loaded chunks while nobody is online. |
 | `gcAfterUnload` | `true` | Run the garbage collector after chunks were unloaded. |
-| `unloadIntervalSeconds` | `30` | Only used when hibernation is disabled by the blacklist: how often chunks are unloaded while empty. |
-| `blacklist` | `[]` | Plugin names (case-insensitive) that break while the server is frozen. If any is installed, hibernation stays off and only chunk unloading runs. An entry starting with `http://` or `https://` is downloaded as a list with one plugin name per line (`#` for comments). |
+| `unloadIntervalSeconds` | `30` | Only used when the blacklist disables hibernation: how often chunks are unloaded while empty. |
+| `blacklist` | `[]` | Plugin names (case-insensitive) that break while the server is frozen. |
 
-Use `/hibernate reload` to apply changes.
+Run `/hibernate reload` to apply changes.
 
-## Commands & Permissions
+### The blacklist
 
-| Command | Description |
-| --- | --- |
-| `/hibernate` or `/hibernate toggle` | Turn hibernation off or on again. Not saved over a reload or restart. |
-| `/hibernate status` | Show whether the plugin is enabled and whether the server is currently sleeping. |
-| `/hibernate reload` | Reload `config.yml`. |
+Some plugins stop working while the server is frozen. Dynmap is the classic example, because its built-in web server goes quiet. List such plugins and TasfiqUnloader backs off:
 
-`/tasfiqunloader` works as an alias. All subcommands need the permission `tasfiqunloader.toggle` (OP by default). Toggling is useful when you need to generate a world or run a task while nobody is online.
+```yaml
+blacklist:
+  - Dynmap
+  - https://example.com/my-plugin-blacklist.txt   # a URL works too
+```
 
-## Caveats
+- If any blacklisted plugin is installed, the server is **not** frozen. Chunks are still unloaded every `unloadIntervalSeconds` while it is empty (if `unloadChunks` is on).
+- An entry starting with `http://` or `https://` is downloaded once on startup or reload and read as one plugin name per line (`#` starts a comment). It is plain text and never executed. Only use URLs you trust.
 
-* The first player to join while the server is hibernating might have to try to connect twice. In most cases this is not needed, but it is possible.
-* Since the server is frozen, plugins like Dynmap stop working while nobody is online (for Dynmap an advanced workaround is to use your own web server instead of the built-in one).
-* The plugin won't help if your server is never empty.
-* "Can't keep up!" messages might show up in your console after hibernation.
-* While the server is hibernating, your TPS goes down (intentionally). Plugins that monitor TPS may report issues during hibernation and for a few minutes after, because they use averages of the past X minutes.
+## FAQ
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<details>
+<summary><b>Will players be kicked or lose progress?</b></summary>
+
+No. Hibernation only happens when nobody is online, and worlds are saved before it starts.
+</details>
+
+<details>
+<summary><b>The first player who joins can't connect. Why?</b></summary>
+
+The server needs a moment to wake up. In most cases it connects on the first try, but sometimes the first player has to try twice.
+</details>
+
+<details>
+<summary><b>Why do my TPS and "Can't keep up!" warnings look bad?</b></summary>
+
+The slowdown is intentional. TPS drops while the server sleeps, and plugins that average TPS over several minutes may report problems for a while after waking up. It does not affect gameplay.
+</details>
+
+<details>
+<summary><b>Do scheduled tasks and other plugins keep running while it sleeps?</b></summary>
+
+No. The whole server is frozen, so anything that relies on the game loop (timers, schedulers, web maps, backups started by a plugin) pauses until a player joins. Use the [blacklist](#the-blacklist) for plugins that must keep running, or `/hibernate toggle` for one-off jobs.
+</details>
+
+<details>
+<summary><b>Does it work on Folia?</b></summary>
+
+No. Folia's regionized threading cannot be frozen this way, and the plugin does not declare Folia support.
+</details>
+
+<details>
+<summary><b>Does it work with Paper's <code>pause-when-empty-seconds</code>?</summary>
+
+You can use either. On Paper 1.21.2 and newer the built-in option does a similar job. TasfiqUnloader is for other versions and for when you also want chunk unloading and the blacklist.
+</details>
+
+<details>
+<summary><b>Will it work on my version?</b></summary>
+
+Almost certainly, anything from 1.8 to 26.x on Java 8 to 25. See [Compatibility](#compatibility). If it doesn't, please [open an issue](https://github.com/TasfiqSami/TasfiqUnloader/issues/new/choose) with your server version and log.
+</details>
 
 ## Building from source
 
-You need JDK 17 or newer (the build targets Java 8 bytecode with `--release 8`) and Maven.
+You need JDK 17 or newer and Maven. The code is compiled for Java 8 (`--release 8`).
 
 ```sh
 git clone https://github.com/TasfiqSami/TasfiqUnloader.git
@@ -146,7 +204,8 @@ mvn package
 
 The jar is written to `target/TasfiqUnloader-<version>.jar`.
 
-### Use it as a dependency
+<details>
+<summary><b>Use it as a Maven dependency</b></summary>
 
 Releases are also published to GitHub Packages (GitHub requires a token with `read:packages` to download from it):
 
@@ -165,36 +224,35 @@ Releases are also published to GitHub Packages (GitHub requires a token with `re
   <scope>provided</scope>
 </dependency>
 ```
+</details>
 
 ## Releases
 
 Releases are built by GitHub Actions. To publish one:
 
-1. Bump the version in `pom.xml` and add a section for it to `CHANGELOG.md`, then merge to `main`.
-2. Publish a GitHub release whose tag is `v` plus that version, using the CHANGELOG section as the notes. In the browser use **Releases → Draft a new release**, or from a terminal: `gh release create v3.0.0 --title "TasfiqUnloader 3.0.0" --notes-file notes.md`.
+1. Bump the version in `pom.xml`, add a section for it to [`CHANGELOG.md`](CHANGELOG.md), and merge to `main`.
+2. Publish a GitHub release whose tag is `v` plus that version, using the changelog section as the notes. In the browser use **Releases > Draft a new release**, or from a terminal:
+   `gh release create v3.0.0 --title "TasfiqUnloader 3.0.0" --notes-file notes.md`
 
-Publishing the release starts the [Release workflow](.github/workflows/release.yml). It checks that the tag matches the pom, builds the jar, checks it is Java 8 bytecode, attaches the jar and its checksum to the release, and publishes the package. Run the [Server compatibility workflow](.github/workflows/compat.yml) from the Actions tab before a release to boot real servers with the new jar.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+Publishing the release starts the [Release workflow](.github/workflows/release.yml). It checks that the tag matches the pom, builds the jar, confirms it is Java 8 bytecode, attaches the jar and its checksum to the release, and publishes the package. Run the [Server compatibility workflow](.github/workflows/compat.yml) from the Actions tab before a release to boot real servers with the new jar.
 
 ## Contributing
 
-Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for the setup and the compatibility rules (Java 8 bytecode, Bukkit 1.8.8 API only), and follow the [Code of Conduct](CODE_OF_CONDUCT.md). For help see [SUPPORT](.github/SUPPORT.md), and report security issues as described in [SECURITY.md](SECURITY.md).
+Contributions are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) for the setup and the compatibility rules (Java 8 bytecode, Bukkit 1.8.8 API only), and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+| I want to... | Go to |
+| --- | --- |
+| Ask a question | [Discord](https://discord.gg/kKQd6PJe22) or [SUPPORT](.github/SUPPORT.md) |
+| Report a bug or request a feature | [Issues](https://github.com/TasfiqSami/TasfiqUnloader/issues/new/choose) |
+| Report a security problem | [SECURITY.md](SECURITY.md) |
+| See what changed | [CHANGELOG.md](CHANGELOG.md) |
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for details.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+Released under the [MIT License](LICENSE).
 
 ## Contact
 
-Tasfiq - [Discord](https://discord.gg/kKQd6PJe22) - tasfiq@programmer.net
+Made by **Tasfiq** &nbsp;|&nbsp; [Discord](https://discord.gg/kKQd6PJe22) &nbsp;|&nbsp; [tasfiq@programmer.net](mailto:tasfiq@programmer.net) &nbsp;|&nbsp; [LinkedIn](https://bio.link/tasfiqah)
 
-Project Link: [https://github.com/TasfiqSami/TasfiqUnloader](https://github.com/TasfiqSami/TasfiqUnloader)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-[product-screenshot]: img/title.jpg
+<div align="right"><a href="#tasfiqunloader">Back to top</a></div>
