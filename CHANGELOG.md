@@ -6,6 +6,16 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [3.0.1] - 2026-11-28
+
+### Changed
+- Command messages now have a coloured prefix.
+- The Release workflow can be re-run safely: if the release already exists it only re-attaches the jar
+  and checksum instead of failing.
+- The Server compatibility workflow also boots Minecraft 1.19.4 and 1.21.1.
+- Tested the blacklist loader and the plugin lifecycle (world save, sleep, chunk unload, `/hibernate`
+  commands, blacklist fallback) against fake Bukkit classes. No behaviour changes were needed.
+
 ## [3.0.0] - 2026-11-23
 
 ### Added

@@ -220,7 +220,7 @@ Releases are also published to GitHub Packages (GitHub requires a token with `re
 <dependency>
   <groupId>io.github.tasfiqsami</groupId>
   <artifactId>tasfiqunloader</artifactId>
-  <version>3.0.0</version>
+  <version>3.0.1</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -233,7 +233,7 @@ Releases are built by GitHub Actions. To publish one:
 1. Bump the version in `pom.xml`, add a section for it to [`CHANGELOG.md`](CHANGELOG.md), and merge to `main`.
 2. Open **Actions > Release > Run workflow**. It creates the tag `v<version>` and the GitHub release (with the changelog section as notes), builds the jar, confirms it is Java 8 bytecode, attaches the jar and its checksum, and publishes the package.
 
-Prefer to do it by hand? Publish a GitHub release whose tag is `v` plus the pom version (**Releases > Draft a new release**, or `gh release create v3.0.0 --notes-file notes.md`). The same workflow then runs, checks that the tag matches the pom, and attaches the files.
+Prefer to do it by hand? Publish a GitHub release whose tag is `v` plus the pom version (**Releases > Draft a new release**, or `gh release create v3.0.1 --notes-file notes.md`). The same workflow then runs, checks that the tag matches the pom, and attaches the files.
 
 Run the [Server compatibility workflow](.github/workflows/compat.yml) from the Actions tab before a release to boot real servers with the new jar.
 

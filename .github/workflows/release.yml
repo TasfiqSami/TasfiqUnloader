@@ -64,9 +64,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # Safe to re-run: if the release already exists, the files are just (re)attached below.
           if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "::error::Release $TAG already exists. Bump the version in pom.xml first."
-            exit 1
+            echo "Release $TAG already exists, only attaching the files."
+            exit 0
           fi
           awk -v v="$VERSION" '/^## \[/ { p = (index($0, "[" v "]") > 0); next } p' CHANGELOG.md > release-notes.md
           flags=(--target "$GITHUB_SHA")

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,8 @@ import org.bukkit.command.TabCompleter;
  */
 final class HibernateCommand implements CommandExecutor, TabCompleter {
 
-    private static final String PREFIX = "[TasfiqUnloader] ";
+    // ChatColor is part of the Bukkit API since 1.0 and renders as plain text in the console.
+    private static final String PREFIX = ChatColor.AQUA + "[TasfiqUnloader] " + ChatColor.GRAY;
     private static final List<String> SUBCOMMANDS = Arrays.asList("toggle", "status", "reload");
 
     private final TasfiqUnloader plugin;
