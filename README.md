@@ -231,10 +231,11 @@ Releases are also published to GitHub Packages (GitHub requires a token with `re
 Releases are built by GitHub Actions. To publish one:
 
 1. Bump the version in `pom.xml`, add a section for it to [`CHANGELOG.md`](CHANGELOG.md), and merge to `main`.
-2. Publish a GitHub release whose tag is `v` plus that version, using the changelog section as the notes. In the browser use **Releases > Draft a new release**, or from a terminal:
-   `gh release create v3.0.0 --title "TasfiqUnloader 3.0.0" --notes-file notes.md`
+2. Open **Actions > Release > Run workflow**. It creates the tag `v<version>` and the GitHub release (with the changelog section as notes), builds the jar, confirms it is Java 8 bytecode, attaches the jar and its checksum, and publishes the package.
 
-Publishing the release starts the [Release workflow](.github/workflows/release.yml). It checks that the tag matches the pom, builds the jar, confirms it is Java 8 bytecode, attaches the jar and its checksum to the release, and publishes the package. Run the [Server compatibility workflow](.github/workflows/compat.yml) from the Actions tab before a release to boot real servers with the new jar.
+Prefer to do it by hand? Publish a GitHub release whose tag is `v` plus the pom version (**Releases > Draft a new release**, or `gh release create v3.0.0 --notes-file notes.md`). The same workflow then runs, checks that the tag matches the pom, and attaches the files.
+
+Run the [Server compatibility workflow](.github/workflows/compat.yml) from the Actions tab before a release to boot real servers with the new jar.
 
 ## Contributing
 

@@ -1,25 +1,28 @@
 name: Release
 
-# Publishing a GitHub release (tag vX.Y.Z, matching the version in pom.xml) builds the jar,
-# attaches it with a checksum, and publishes the package to GitHub Packages.
+# Two ways to release:
+#   1. Run this workflow by hand (Actions > Release > Run workflow). It reads the version from
+#      pom.xml, creates the tag and GitHub release (notes come from CHANGELOG.md), then builds and
+#      attaches the jar and publishes the package.
+#   2. Publish a GitHub release yourself (tag vX.Y.Z matching pom.xml). The workflow then builds
+#      and attaches the jar and publishes the package.
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 permissions:
-  contents: write   # attach files to the release
+  contents: write   # create the release and attach files
   packages: write   # publish to GitHub Packages
 
 jobs:
   build-and-publish:
     name: Build and publish
     runs-on: ubuntu-latest
-    env:
-      TAG: ${{ github.event.release.tag_name }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.release.tag_name }}
+          ref: ${{ github.event.release.tag_name || github.sha }}
 
       - uses: actions/setup-java@v4
         with:
@@ -30,14 +33,20 @@ jobs:
           server-username: GITHUB_ACTOR
           server-password: GITHUB_TOKEN
 
-      - name: Check the tag matches the pom version
+      - name: Work out the version and tag
         run: |
           VERSION=$(mvn -B -ntp -q help:evaluate -Dexpression=project.version -DforceStdout)
-          if [ "v$VERSION" != "$TAG" ]; then
-            echo "::error::Release tag $TAG does not match pom version $VERSION"
-            exit 1
-          fi
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          if [ "${{ github.event_name }}" = "release" ]; then
+            TAG="${{ github.event.release.tag_name }}"
+            if [ "v$VERSION" != "$TAG" ]; then
+              echo "::error::Release tag $TAG does not match pom version $VERSION"
+              exit 1
+            fi
+          else
+            TAG="v$VERSION"
+          fi
+          echo "TAG=$TAG" >> "$GITHUB_ENV"
 
       - name: Build
         run: mvn -B -ntp verify
@@ -49,6 +58,27 @@ jobs:
         run: |
           cd target
           sha256sum "TasfiqUnloader-${VERSION}.jar" > "TasfiqUnloader-${VERSION}.jar.sha256"
+
+      - name: Create the release (manual run only)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "::error::Release $TAG already exists. Bump the version in pom.xml first."
+            exit 1
+          fi
+          awk -v v="$VERSION" '/^## \[/ { p = (index($0, "[" v "]") > 0); next } p' CHANGELOG.md > release-notes.md
+          flags=(--target "$GITHUB_SHA")
+          if [ -s release-notes.md ]; then
+            flags+=(--notes-file release-notes.md)
+          else
+            flags+=(--generate-notes)
+          fi
+          case "$VERSION" in
+            *-*) flags+=(--prerelease) ;;
+          esac
+          gh release create "$TAG" --title "TasfiqUnloader ${VERSION}" "${flags[@]}"
 
       - name: Attach files to the release
         env:
